@@ -77,7 +77,7 @@ func getResponse(status string, msg string) (string, error){
 func Import() (string, error) {
   start_time = time.Now()
   v := &VariableInit{}
-  file, err := os.Open("samples/myfile_sample.csv")
+  file, err := os.Open("../samples/myfile_sample.csv")
   c := &CsvHeader{}
   if err != nil {
     pwd, _ := os.Getwd()
