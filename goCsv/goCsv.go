@@ -117,16 +117,16 @@ func (csvDataContainer *VariableInit) GenertaeString() {
     csvDataContainer.first_100 = csvDataContainer.remaining
     csvDataContainer.remaining = nil
   }
-  for j,rec_values := range csvDataContainer.first_100 {
+  for parentIndex,rec_values := range csvDataContainer.first_100 {
     csvDataContainer.stringVal += "("
-    for i,rec := range rec_values {
+    for childIndex,rec := range rec_values {
       if rec = rec; rec == "" { rec = "NULL"}
       checkAlphanumeric, _ := regexp.Compile("([a-zA-Z]+)")
       if (checkAlphanumeric.MatchString(rec)) {rec = "'"+rec+"'"}
-      if csvDataContainer.str  = ","; i == 0 { csvDataContainer.str = "" }
+      if csvDataContainer.str  = ","; childIndex == 0 { csvDataContainer.str = "" }
       csvDataContainer.stringVal += (csvDataContainer.str+rec)
     }
-    if (len(csvDataContainer.first_100) == j+1) {  csvDataContainer.stringVal += ");"
+    if (len(csvDataContainer.first_100) == parentIndex+1) {  csvDataContainer.stringVal += ");"
     } else {csvDataContainer.stringVal += "),"}
   }
   psqlConn.InsertRec(csvDataContainer.stringVal)
