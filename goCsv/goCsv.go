@@ -59,7 +59,7 @@ func (c *CsvHeader) returnValue() []string {
 }
 
 func getResponse(status string, msg string) (string, error){
-  val1 := fmt.Sprintf("%v",status)
+  val1 := fmt.Sprintf("%csvDataContainer",status)
   val2 := fmt.Sprintf("%v",msg)
   time := (executionTime())
   fmt.Println(time)
@@ -76,7 +76,7 @@ func getResponse(status string, msg string) (string, error){
 
 func Import() (string, error) {
   start_time = time.Now()
-  v := &VariableInit{}
+  csvDataContainer := &VariableInit{}
   file, err := os.Open("../samples/myfile_sample.csv")
   c := &CsvHeader{}
   if err != nil {
@@ -97,75 +97,39 @@ func Import() (string, error) {
     return jsonMsg,err
   }
   header := records[0]
-  v.remaining = records[1:]
+  csvDataContainer.remaining = records[1:]
   c.assignValue(header)
-  v.Lenght = 200
+  csvDataContainer.Lenght = 200
   psqlConn.CreateTable(c.returnValue())
-  v.GenertaeString()
+  csvDataContainer.GenertaeString()
   jsonMsg,err := getResponse("200", "Success!!")
   return jsonMsg,err
 }
 
-// func (v *VariableInit) GenertaeString(record [][]string) {
-//   v.stringVal = ""
-//   v.str = ""
-//   var lenght int = 200
-//   if len(record) > lenght{
-//     temp_1 := [][]string{}
-//     temp_2 := [][]string{}
-//     v.first_100 = append(temp_1,record[1:lenght]...)
-//     v.remaining = append(temp_2,record[lenght:]...)
-//   }else{
-//     v.first_100 = record
-//   }
-//   for j,rec_values := range v.first_100 {
-//     v.stringVal += "("
-//     for i,rec := range rec_values {
-//       if rec = rec; rec == "" { rec = "NULL"}
-//       r, _ := regexp.Compile("([a-zA-Z]+)")
-//       if (r.MatchString(rec)) {rec = "'"+rec+"'"}
-//       if v.str  = ","; i == 0 { v.str = "" }
-//       v.stringVal += (v.str+rec)
-//     }
-//     if (len(v.first_100) == j+1) {  v.stringVal += ");"
-//     } else {v.stringVal += "),"}
-//   }
-//   psqlConn.InsertRec(v.stringVal)
-//   v.first_100 = nil
-//   fmt.Printf("record: %T, %d\n", record, unsafe.Sizeof(record))
-//   fmt.Printf("Remaining: %T, %d\n", v.remaining, unsafe.Sizeof(v.remaining))
-
-//   if (len(v.remaining) !=0) { v.GenertaeString(v.remaining) }
-// }
-
-func (v *VariableInit) GenertaeString() {
-  v.stringVal = ""
-  v.str = ""
-  // var lenght int = 200
-  if len(v.remaining) > v.Lenght{
-    v.first_100 =  v.remaining[:v.Lenght]
-    v.remaining =  v.remaining[v.Lenght:]
-
+func (csvDataContainer *VariableInit) GenertaeString() {
+  csvDataContainer.stringVal = ""
+  csvDataContainer.str = ""
+  if len(csvDataContainer.remaining) > csvDataContainer.Lenght{
+    csvDataContainer.first_100 =  csvDataContainer.remaining[:csvDataContainer.Lenght]
+    csvDataContainer.remaining =  csvDataContainer.remaining[csvDataContainer.Lenght:]
   }else{
-    v.first_100 = v.remaining
-    v.remaining = nil
+    csvDataContainer.first_100 = csvDataContainer.remaining
+    csvDataContainer.remaining = nil
   }
-  for j,rec_values := range v.first_100 {
-    v.stringVal += "("
+  for j,rec_values := range csvDataContainer.first_100 {
+    csvDataContainer.stringVal += "("
     for i,rec := range rec_values {
       if rec = rec; rec == "" { rec = "NULL"}
       r, _ := regexp.Compile("([a-zA-Z]+)")
       if (r.MatchString(rec)) {rec = "'"+rec+"'"}
-      if v.str  = ","; i == 0 { v.str = "" }
-      v.stringVal += (v.str+rec)
-      // fmt.Printf("V ---> %v\n",unsafe.Sizeof(v))
-
+      if csvDataContainer.str  = ","; i == 0 { csvDataContainer.str = "" }
+      csvDataContainer.stringVal += (csvDataContainer.str+rec)
     }
-    if (len(v.first_100) == j+1) {  v.stringVal += ");"
-    } else {v.stringVal += "),"}
+    if (len(csvDataContainer.first_100) == j+1) {  csvDataContainer.stringVal += ");"
+    } else {csvDataContainer.stringVal += "),"}
   }
-  psqlConn.InsertRec(v.stringVal)
-  v.first_100 = nil
-  fmt.Printf("--------------> %d\n", len(v.remaining))
-  if (len(v.remaining) !=0) { v.GenertaeString() }
+  psqlConn.InsertRec(csvDataContainer.stringVal)
+  csvDataContainer.first_100 = nil
+  fmt.Printf("--------------> %d\n", len(csvDataContainer.remaining))
+  if (len(csvDataContainer.remaining) !=0) { csvDataContainer.GenertaeString() }
 }
