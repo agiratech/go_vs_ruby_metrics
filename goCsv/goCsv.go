@@ -107,8 +107,9 @@ func Import() (string, error) {
 }
 
 func (csvDataContainer *VariableInit) GenertaeString() {
-  csvDataContainer.stringVal = ""
-  csvDataContainer.str = ""
+  // for example csvDataContainer.Lenght = 100
+  csvDataContainer.stringVal = ""// store the rows of data (as a string) to be inserted in table
+  csvDataContainer.str = ""// used for comma and semicolon separator
   if len(csvDataContainer.remaining) > csvDataContainer.Lenght{
     csvDataContainer.first_100 =  csvDataContainer.remaining[:csvDataContainer.Lenght]
     csvDataContainer.remaining =  csvDataContainer.remaining[csvDataContainer.Lenght:]
@@ -120,8 +121,8 @@ func (csvDataContainer *VariableInit) GenertaeString() {
     csvDataContainer.stringVal += "("
     for i,rec := range rec_values {
       if rec = rec; rec == "" { rec = "NULL"}
-      r, _ := regexp.Compile("([a-zA-Z]+)")
-      if (r.MatchString(rec)) {rec = "'"+rec+"'"}
+      checkAlphanumeric, _ := regexp.Compile("([a-zA-Z]+)")
+      if (checkAlphanumeric.MatchString(rec)) {rec = "'"+rec+"'"}
       if csvDataContainer.str  = ","; i == 0 { csvDataContainer.str = "" }
       csvDataContainer.stringVal += (csvDataContainer.str+rec)
     }
