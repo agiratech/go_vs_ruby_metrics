@@ -1,17 +1,21 @@
-# Golang vs Ruby Performance Metrics
+Agira (http://www.agiratech.com) team was solutioning for the situation where in to upload a set of complex csv data in to an ETL Database (PostgreSql).
 
-It all starts with a Rails application as usual. In one particular situation, we need to upload complex csv record to ETL DB for reporting purpose with over 500k entries for every kickstart.
+We have made our hands dirty with the Ruby code first (sidekiq jobs).
 
-The initial code was written in Ruby and run via sidekiq jobs but was taking more time to finish the job.
+But the situation demands for better performance and improved execution time.
 
-This was a bottleneck we decided to eliminate and since there was a lot of scope for concurrency here, we decided to use Golang for this.
+To improvise for the situation and to have a efficient concurrency on the operations we have developed the code again in Golang.
 
-we @agiratech wondered while i'm executing same process in Golang, the numbers are surprised me , we shared our experience here. To ensure the metrics, we ran the same process in c4.xlarge and c4.2xlarge in amazon web services.
+No wonder, Golang performance is much better on the give situation.
 
-From our study, the overall the performance of Golang is around 5x faster than Ruby.
+#agiratech team want to ensure the  results are measured better, so we executed the same process in AWS boxes (c4.xlarge & c4.2xlarge.
 
-You can refer golang code in master branch and ruby code in rails branch.
+Checkout for golang code in master branch and Ruby code in rails branch.
 
-For more graph metrics, you can refer this link (http://www.agiratech.com)
+Happy Learning !!!!
+
+The following BLOG says more about our approach.
+
+http://www.agiratech.com/golang-vs-ruby-on-rails-data-insertion-metrics-a-study/
 
 To hire golang developers contact http://www.agiratech.com/golang-development
