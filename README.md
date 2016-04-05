@@ -8,7 +8,7 @@ To improvise for the situation and to have a efficient concurrency on the operat
 
 No wonder, Golang performance is much better on the give situation.
 
-#agiratech team want to ensure the  results are measured better, so we executed the same process in AWS boxes (c4.xlarge & c4.2xlarge.
+Agiratech team want to ensure the  results are measured better, so we executed the same process in AWS boxes (c4.xlarge & c4.2xlarge.
 
 Checkout for golang code in master branch and Ruby code in rails branch.
 
